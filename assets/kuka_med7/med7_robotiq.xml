@@ -1,0 +1,259 @@
+<mujoco model="kuka_med7_robotiq">
+  <compiler angle="radian" meshdir="assets" autolimits="true" balanceinertia="true"/>
+  <option integrator="implicitfast"/>
+
+  <default>
+    <default class="med7">
+      <material specular="0.5" shininess="0.25"/>
+      <joint damping="5.0" frictionloss="0.5" armature="1.0"/>
+      <general biastype="affine"/>
+      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2" material="light_grey"/>
+      </default>
+      <default class="collision">
+        <geom type="mesh" group="3" rgba="0.5 0.5 0.5 1"/>
+      </default>
+    </default>
+
+    <default class="2f85">
+      <mesh scale="0.001 0.001 0.001"/>
+      <general biastype="affine"/>
+      <joint axis="1 0 0"/>
+      <default class="driver">
+        <joint range="0 0.8" armature="0.005" damping="0.1" solimplimit="0.95 0.99 0.001" solreflimit="0.005 1"/>
+      </default>
+      <default class="follower">
+        <joint range="-0.872664 0.872664" armature="0.001" pos="0 -0.018 0.0065" solimplimit="0.95 0.99 0.001" solreflimit="0.005 1"/>
+      </default>
+      <default class="spring_link">
+        <joint range="-0.29670597283 0.8" armature="0.001" stiffness="0.05" springref="2.62" damping="0.00125"/>
+      </default>
+      <default class="coupler">
+        <joint range="-1.57 0" armature="0.001" solimplimit="0.95 0.99 0.001" solreflimit="0.005 1"/>
+      </default>
+      <default class="robotiq_visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+      </default>
+      <default class="robotiq_collision">
+        <geom type="mesh" group="3"/>
+        <default class="pad_box1">
+          <geom mass="0" type="box" pos="0 -0.0026 0.028125" size="0.011 0.004 0.009375" friction="0.7"
+            solimp="0.95 0.99 0.001" solref="0.004 1" priority="1" rgba="0.55 0.55 0.55 1"/>
+        </default>
+        <default class="pad_box2">
+          <geom mass="0" type="box" pos="0 -0.0026 0.009375" size="0.011 0.004 0.009375" friction="0.6"
+            solimp="0.95 0.99 0.001" solref="0.004 1" priority="1" rgba="0.45 0.45 0.45 1"/>
+        </default>
+      </default>
+    </default>
+  </default>
+
+  <asset>
+    <material name="light_grey" rgba="0.8 0.8 0.8 1"/>
+    <material name="dark_grey" rgba="0.3 0.3 0.3 1"/>
+    <mesh name="link_0_vis" file="visual/link_0.obj"/>
+    <mesh name="link_1_vis" file="visual/link_1.obj"/>
+    <mesh name="link_2_vis" file="visual/link_2.obj"/>
+    <mesh name="link_3_vis" file="visual/link_3.obj"/>
+    <mesh name="link_4_vis" file="visual/link_4.obj"/>
+    <mesh name="link_5_vis" file="visual/link_5.obj"/>
+    <mesh name="link_6_vis" file="visual/link_6.obj"/>
+    <mesh name="link_7_vis" file="visual/link_7.obj"/>
+    <mesh name="link_0_col" file="collision/link_0.stl"/>
+    <mesh name="link_1_col" file="collision/link_1.stl"/>
+    <mesh name="link_2_col" file="collision/link_2.stl"/>
+    <mesh name="link_3_col" file="collision/link_3.stl"/>
+    <mesh name="link_4_col" file="collision/link_4.stl"/>
+    <mesh name="link_5_col" file="collision/link_5.stl"/>
+    <mesh name="link_6_col" file="collision/link_6.stl"/>
+    <mesh name="link_7_col" file="collision/link_7.stl"/>
+
+    <material name="metal" rgba="0.58 0.58 0.58 1"/>
+    <material name="silicone" rgba="0.1882 0.1882 0.1882 1"/>
+    <material name="gray" rgba="0.4627 0.4627 0.4627 1"/>
+    <material name="black" rgba="0.149 0.149 0.149 1"/>
+    <mesh class="2f85" name="base_mount" file="../robotiq_2f85/assets/base_mount.stl"/>
+    <mesh class="2f85" name="base" file="../robotiq_2f85/assets/base.stl"/>
+    <mesh class="2f85" name="driver" file="../robotiq_2f85/assets/driver.stl"/>
+    <mesh class="2f85" name="coupler" file="../robotiq_2f85/assets/coupler.stl"/>
+    <mesh class="2f85" name="follower" file="../robotiq_2f85/assets/follower.stl"/>
+    <mesh class="2f85" name="pad" file="../robotiq_2f85/assets/pad.stl"/>
+    <mesh class="2f85" name="silicone_pad" file="../robotiq_2f85/assets/silicone_pad.stl"/>
+    <mesh class="2f85" name="spring_link" file="../robotiq_2f85/assets/spring_link.stl"/>
+  </asset>
+
+  <worldbody>
+    <body name="link_0" pos="0 0 0">
+      <inertial pos="-0.001896 0.0 0.076263" mass="7.143112" diaginertia="0.038694 0.039461 0.054387"/>
+      <geom mesh="link_0_vis" class="visual"/>
+      <geom mesh="link_0_col" class="collision"/>
+
+      <body name="link_1" pos="0 0 0.1475">
+        <joint name="A1" axis="0 0 1" range="-2.9496 2.9496" class="med7"/>
+        <geom mesh="link_1_vis" class="visual" pos="0 0 -0.1475"/>
+        <geom mesh="link_1_col" class="collision" pos="0 0 -0.1475"/>
+        <inertial pos="0.0 -0.034819 0.123299" mass="3.271499" fullinertia="0.020611 0.019667 0.00729 0 0 0.00366"/>
+
+        <body name="link_2" pos="0 -0.0105 0.1925">
+          <joint name="A2" axis="0 1 0" range="-2.0769 2.0769" class="med7"/>
+          <geom mesh="link_2_vis" class="visual" pos="0 0.0105 -0.34"/>
+          <geom mesh="link_2_col" class="collision" pos="0 0.0105 -0.34"/>
+          <inertial pos="0.0 0.039793 0.086944" mass="3.886413" fullinertia="0.030552 0.028995 0.009317 0 0 0.005676"/>
+
+          <body name="link_3" pos="0 0.0105 0.2075">
+            <joint name="A3" axis="0 0 1" range="-2.9496 2.9496" class="med7"/>
+            <geom mesh="link_3_vis" class="visual" pos="0 0 -0.5475"/>
+            <geom mesh="link_3_col" class="collision" pos="0 0 -0.5475"/>
+            <inertial pos="0.0 0.034819 0.123299" mass="3.271499" fullinertia="0.020611 0.019667 0.00729 0 0 -0.00366"/>
+
+            <body name="link_4" pos="0 0.0105 0.1925">
+              <joint name="A4" axis="0 -1 0" range="-2.0769 2.0769" class="med7"/>
+              <geom mesh="link_4_vis" class="visual" pos="0 -0.0105 -0.74"/>
+              <geom mesh="link_4_col" class="collision" pos="0 -0.0105 -0.74"/>
+              <inertial pos="0.0 -0.039793 0.086944" mass="3.886411" fullinertia="0.030547 0.028993 0.009313 0 0 -0.005676"/>
+
+              <body name="link_5" pos="0 -0.0105 0.2075">
+                <joint name="A5" axis="0 0 1" range="-2.9496 2.9496" class="med7"/>
+                <geom mesh="link_5_vis" class="visual" pos="0 0 -0.9475"/>
+                <geom mesh="link_5_col" class="collision" pos="0 0 -0.9475"/>
+                <inertial pos="0.0 -0.029824 0.076267" mass="1.474048" fullinertia="0.008179 0.006879 0.003709 0 0 0.002704"/>
+
+                <body name="link_6" pos="0 -0.0707 0.1925">
+                  <joint name="A6" axis="0 1 0" range="-2.0769 2.0769" class="med7"/>
+                  <geom mesh="link_6_vis" class="visual" pos="0 0.0707 -1.14"/>
+                  <geom mesh="link_6_col" class="collision" pos="0 0.0707 -1.14"/>
+                  <inertial pos="-0.000001 0.07102 0.004953" mass="2.316911" fullinertia="0.006813 0.006559 0.004462 0 0 0.0003"/>
+
+                  <body name="link_7" pos="0 0.0707 0.091">
+                    <joint name="A7" axis="0 0 1" range="-3.0368 3.0368" class="med7"/>
+                    <geom mesh="link_7_vis" class="visual" pos="0 0 -1.231"/>
+                    <geom mesh="link_7_col" class="collision" pos="0 0 -1.231"/>
+                    <inertial pos="0.000003 -0.000002 0.013782" mass="0.250108" fullinertia="0.000165 0.000165 0.000288 0 0 0"/>
+                    
+                    <body name="base_mount" pos="0 0 0.005" childclass="2f85">
+                        <geom class="robotiq_visual" mesh="base_mount" material="black"/>
+                        <geom class="robotiq_collision" mesh="base_mount"/>
+                        
+
+                        <!--机械臂末端的摄像头-->
+                        <body name="hand_camera_mount" pos="0 -0.1 0.05" euler="2.9 0 0">
+                            <camera name="hand_camera" fovy="75" mode="fixed"/>
+                            <geom type="box" size="0.01 0.03 0.01" rgba="0.1 0.1 0.1 1" pos="0 0 0" />
+                        </body>
+
+
+                        <body name="base" pos="0 0 0.0038" quat="1 0 0 -1">
+                            <inertial mass="0.777441" pos="0 -2.70394e-05 0.0354675" quat="1 -0.00152849 0 0" diaginertia="0.000260285 0.000225381 0.000152708"/>
+                            <geom class="robotiq_visual" mesh="base" material="black"/>
+                            <geom class="robotiq_collision" mesh="base"/>
+                            <site name="attachment_site" pos="0 0 0.145" type="sphere" group="5" rgba="1 0 0 0.5" size="0.005"/>
+                            
+                            <body name="right_driver" pos="0 0.0306011 0.054904">
+                                <joint name="right_driver_joint" class="driver"/>
+                                <geom class="robotiq_visual" mesh="driver" material="gray"/>
+                                <geom class="robotiq_collision" mesh="driver"/>
+                                <body name="right_coupler" pos="0 0.0315 -0.0041">
+                                    <joint name="right_coupler_joint" class="coupler"/>
+                                    <geom class="robotiq_visual" mesh="coupler" material="black"/>
+                                    <geom class="robotiq_collision" mesh="coupler"/>
+                                </body>
+                            </body>
+                            <body name="right_spring_link" pos="0 0.0132 0.0609">
+                                <joint name="right_spring_link_joint" class="spring_link"/>
+                                <geom class="robotiq_visual" mesh="spring_link" material="black"/>
+                                <geom class="robotiq_collision" mesh="spring_link"/>
+                                <body name="right_follower" pos="0 0.055 0.0375">
+                                    <joint name="right_follower_joint" class="follower"/>
+                                    <geom class="robotiq_visual" mesh="follower" material="black"/>
+                                    <geom class="robotiq_collision" mesh="follower"/>
+                                    <body name="right_pad" pos="0 -0.0189 0.01352">
+                                        <geom class="pad_box1" name="right_pad1"/>
+                                        <geom class="pad_box2" name="right_pad2"/>
+                                        <geom class="robotiq_visual" mesh="pad"/>
+                                        <body name="right_silicone_pad">
+                                            <geom class="robotiq_visual" mesh="silicone_pad" material="black"/>
+                                        </body>
+                                    </body>
+                                </body>
+                            </body>
+                            <body name="left_driver" pos="0 -0.0306011 0.054904" quat="0 0 0 1">
+                                <joint name="left_driver_joint" class="driver"/>
+                                <geom class="robotiq_visual" mesh="driver" material="gray"/>
+                                <geom class="robotiq_collision" mesh="driver"/>
+                                <body name="left_coupler" pos="0 0.0315 -0.0041">
+                                    <joint name="left_coupler_joint" class="coupler"/>
+                                    <geom class="robotiq_visual" mesh="coupler" material="black"/>
+                                    <geom class="robotiq_collision" mesh="coupler"/>
+                                </body>
+                            </body>
+                            <body name="left_spring_link" pos="0 -0.0132 0.0609" quat="0 0 0 1">
+                                <joint name="left_spring_link_joint" class="spring_link"/>
+                                <geom class="robotiq_visual" mesh="spring_link" material="black"/>
+                                <geom class="robotiq_collision" mesh="spring_link"/>
+                                <body name="left_follower" pos="0 0.055 0.0375">
+                                    <joint name="left_follower_joint" class="follower"/>
+                                    <geom class="robotiq_visual" mesh="follower" material="black"/>
+                                    <geom class="robotiq_collision" mesh="follower"/>
+                                    <body name="left_pad" pos="0 -0.0189 0.01352">
+                                        <geom class="pad_box1" name="left_pad1"/>
+                                        <geom class="pad_box2" name="left_pad2"/>
+                                        <geom class="robotiq_visual" mesh="pad"/>
+                                        <body name="left_silicone_pad">
+                                            <geom class="robotiq_visual" mesh="silicone_pad" material="black"/>
+                                        </body>
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                    </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <contact>
+    <exclude body1="link_0" body2="link_1"/>
+    <exclude body1="link_1" body2="link_2"/>
+    <exclude body1="link_2" body2="link_3"/>
+    <exclude body1="link_3" body2="link_4"/>
+    <exclude body1="link_4" body2="link_5"/>
+    <exclude body1="link_5" body2="link_6"/>
+    <exclude body1="link_6" body2="link_7"/>
+    <exclude body1="base" body2="left_driver"/>
+    <exclude body1="base" body2="right_driver"/>
+    <exclude body1="base" body2="left_spring_link"/>
+    <exclude body1="base" body2="right_spring_link"/>
+    <exclude body1="right_coupler" body2="right_follower"/>
+    <exclude body1="left_coupler" body2="left_follower"/>
+  </contact>
+
+  <tendon>
+    <fixed name="split">
+      <joint joint="right_driver_joint" coef="0.5"/>
+      <joint joint="left_driver_joint" coef="0.5"/>
+    </fixed>
+  </tendon>
+
+  <equality>
+    <connect anchor="0 0 0" body1="right_follower" body2="right_coupler" solimp="0.95 0.99 0.001" solref="0.005 1"/>
+    <connect anchor="0 0 0" body1="left_follower" body2="left_coupler" solimp="0.95 0.99 0.001" solref="0.005 1"/>
+    <joint joint1="right_driver_joint" joint2="left_driver_joint" polycoef="0 1 0 0 0" solimp="0.95 0.99 0.001" solref="0.005 1"/>
+  </equality>
+
+  <actuator>
+    <motor name="A1" joint="A1" ctrlrange="-200 200"/>
+    <motor name="A2" joint="A2" ctrlrange="-200 200"/>
+    <motor name="A3" joint="A3" ctrlrange="-200 200"/>
+    <motor name="A4" joint="A4" ctrlrange="-200 200"/>
+    <motor name="A5" joint="A5" ctrlrange="-200 200"/>
+    <motor name="A6" joint="A6" ctrlrange="-200 200"/>
+    <motor name="A7" joint="A7" ctrlrange="-200 200"/>
+    
+    <general class="2f85" name="fingers_actuator" tendon="split" forcerange="-5 5" ctrlrange="0 255" gainprm="0.3137255 0 0" biasprm="0 -100 -10"/>
+  </actuator>
+</mujoco>

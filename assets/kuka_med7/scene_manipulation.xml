@@ -1,0 +1,72 @@
+<mujoco model="manipulation_lab">
+  <statistic center="0.3 0 0.4" extent="0.8"/>
+  <compiler angle="radian" meshdir="assets" autolimits="true"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="120" elevation="-20"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" width="100" height="100"/>
+    
+    <texture type="2d" name="wood_tex" builtin="flat" rgb1="0.8 0.7 0.6" width="512" height="512"/>
+    
+    <material name="groundplane" texture="groundplane" texrepeat="10 10"/>
+    <material name="table_top_mat" texture="wood_tex" rgba="0.9 0.9 0.9 1" shininess="0.1"/>
+    <material name="table_leg_mat" rgba="0.2 0.2 0.2 1" shininess="0.8"/> <material name="camera_stand_mat" rgba="0.1 0.1 0.1 1"/>
+  </asset>
+
+  <include file="med7_robotiq.xml"/>
+
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
+    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
+
+
+    <!--调整桌子-->
+
+    <body name="lab_table" pos="0.6 0 0">
+      <geom name="table_top" type="box" size="0.3 0.5 0.008" pos="0 0 0.1" material="table_top_mat"/>
+      
+      <geom name="leg_fl" type="cylinder" size="0.02 0.05" pos=" 0.25  0.45 0.05" material="table_leg_mat"/>
+      <geom name="leg_fr" type="cylinder" size="0.02 0.05" pos=" 0.25 -0.45 0.05" material="table_leg_mat"/>
+      <geom name="leg_bl" type="cylinder" size="0.02 0.05" pos="-0.25  0.45 0.05" material="table_leg_mat"/>
+      <geom name="leg_br" type="cylinder" size="0.02 0.05" pos="-0.25 -0.45 0.05" material="table_leg_mat"/>
+    </body>
+
+
+
+    <body name="cube" pos="0.6 0 0.15">
+      <freejoint/>
+      <geom name="cube_geom" type="box" size="0.02 0.02 0.02" rgba="1 0 0 1" mass="0.1"
+            condim="4" friction="1 0.1 0.1" solimp="0.95 0.99 0.01" solref="0.001 1"/>
+    </body>
+
+    <site name="goal_zone" pos="0.6 0.25 0.11" size="0.05 0.001" type="cylinder" rgba="0 1 0 0.3"/>
+
+
+
+
+    <!--旁边的摄像头-->
+    <body name="side_camera_mount" pos="0.65 -0.8 0.8" euler="0 0 1.57">
+      <geom type="cylinder" size="0.02 0.8" pos="0 0 -0.4" material="camera_stand_mat"/>
+      <camera name="side_camera" pos="0 0 0" fovy="50" mode="targetbody" target="lab_table"/>
+    </body>
+
+    <!--天空的摄像头-->
+    <body name="top_camera_mount" pos="0.65 0 1.5">
+       <camera name="top_camera" fovy="60" mode="targetbody" target="lab_table"/>
+    </body>
+
+
+    <!--机械臂末端的跟随方块-->
+    <body name="target" mocap="true" pos="0.5 0 0.6">
+      <geom type="box" size="0.02 0.02 0.02" rgba="1 0 0 0.5" contype="0" conaffinity="0"/>
+    </body>
+
+
+  </worldbody>
+</mujoco>

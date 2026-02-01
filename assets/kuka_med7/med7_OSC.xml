@@ -1,8 +1,4 @@
 <mujoco model="kuka_med7_osc_core">
-  <compiler angle="radian" meshdir="assets" autolimits="true" balanceinertia="true"/>
-
-  <option integrator="implicitfast"/>
-
   <default>
     <default class="med7">
       <material specular="0.5" shininess="0.25"/>
@@ -92,8 +88,6 @@
 
                     <body name="attachment" pos="0 0 0.045" quat="0 0 0 1">
                       <site name="attachment_site" rgba="1 0 0 1" size="0.01" group="1"/>
-
-  <include file="/media/a6000-117/eee1def6-b942-4617-96a3-ba01a0d51657/lzz/diffusion_kuka_LLM/assets/mujoco_menagerie/robotiq_2f85/2f85.xml"/>
                     </body>
                   </body>
                 </body>
