@@ -1,0 +1,121 @@
+<!-- kuka med 7机械臂 / 可拖动的红色柔性体 / 四角桌子
+
+<mujoco model="kuka_med7_scene_osc_pure">
+  <include file="med7_OSC.xml"/>
+
+  <statistic center="0.3 0 0.4" extent="0.8" meansize="0.05"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.1 0.1 0.1" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="120" elevation="-20"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture name="grid" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2" width="512" height="512" mark="cross" markrgb=".8 .8 .8"/>
+    <material name="grid" texture="grid" texrepeat="1 1" texuniform="true"/>
+    
+    <material name="table_leg_mat" rgba="0.8 0.8 0.8 1" specular="0.8" shininess="0.5"/>
+    <material name="table_top_mat" rgba="0.2 0.2 0.2 1" specular="0.3" shininess="0.1"/>
+  </asset>
+
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
+    <geom name="floor" size="0 0 0.05" type="plane" material="grid"/>
+
+    <body name="target" pos="0.5 0 0.6" quat="0 1 0 0" mocap="true">
+      <geom type="box" size=".03 .03 .03" contype="0" conaffinity="0" rgba=".6 .3 .3 .5"/>
+      <site type="sphere" size="0.01" rgba="0 0 1 1" group="1"/>
+    </body>
+
+    <body name="lab_table" pos="0.6 0 0"> 
+      <geom type="box" pos="0 0 0.22" size="0.25 0.25 0.01" material="table_top_mat" friction="2 0.005 0.0001"/>
+      
+      <geom type="cylinder" pos="0.22 0.22 0.1" size="0.02 0.11" material="table_leg_mat"/>
+      <geom type="cylinder" pos="0.22 -0.22 0.1" size="0.02 0.11" material="table_leg_mat"/>
+      <geom type="cylinder" pos="-0.22 0.22 0.1" size="0.02 0.11" material="table_leg_mat"/>
+      <geom type="cylinder" pos="-0.22 -0.22 0.1" size="0.02 0.11" material="table_leg_mat"/>
+    </body>
+
+  </worldbody>
+</mujoco> -->
+
+
+
+
+<mujoco model="kuka_med7_scene_osc_pure">
+  <include file="med7_OSC.xml"/>
+
+  <option timestep="0.0005" solver="Newton" tolerance="1e-6" integrator="implicitfast"/>
+
+  <statistic center="0.3 0 0.4" extent="0.8" meansize="0.05"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.1 0.1 0.1" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="120" elevation="-20"/>
+    <map stiffness="100" stiffnessrot="500"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture name="grid" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2" width="512" height="512" mark="cross" markrgb=".8 .8 .8"/>
+    <material name="grid" texture="grid" texrepeat="1 1" texuniform="true"/>
+    
+    <material name="table_leg_mat" rgba="0.8 0.8 0.8 1" specular="0.8" shininess="0.5"/>
+    <material name="table_top_mat" rgba="0.2 0.2 0.2 1" specular="0.3" shininess="0.1"/>
+  </asset>
+
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
+    <geom name="floor" size="0 0 0.05" type="plane" material="grid"/>
+
+    <body name="target" pos="0.5 0 0.6" quat="0 1 0 0" mocap="true">
+      <geom type="box" size=".03 .03 .03" contype="0" conaffinity="0" rgba=".6 .3 .3 .5"/>
+      <site type="sphere" size="0.01" rgba="0 0 1 1" group="1"/>
+    </body>
+
+    <body name="lab_table" pos="0.6 0 0"> 
+      <geom type="box" pos="0 0 0.22" size="0.25 0.25 0.01" material="table_top_mat" friction="2 0.005 0.0001"/>
+      
+      <geom type="cylinder" pos="0.22 0.22 0.1" size="0.02 0.11" material="table_leg_mat"/>
+      <geom type="cylinder" pos="0.22 -0.22 0.1" size="0.02 0.11" material="table_leg_mat"/>
+      <geom type="cylinder" pos="-0.22 0.22 0.1" size="0.02 0.11" material="table_leg_mat"/>
+      <geom type="cylinder" pos="-0.22 -0.22 0.1" size="0.02 0.11" material="table_leg_mat"/>
+    </body>
+
+<!-- 柔性体参数修改 -->
+<!-- 
+变厚
+  修改count的第三个数。比如 9 9 3 改成 9 9 5（层数变多，厚度翻倍）。
+  或者修改 spacing 的第三个数。比如 0.05 0.05 0.05 改成 0.05 0.05 0.1（每层间距变大）。
+变硬
+  修改elasticity young="1e4"。改成 2e4 或 5e4。
+变面积
+  count 的前两个数。比如 9 9 3 改成 15 15 3。
+换位置
+  修改 pos="0.6 0 0.3" 中的数值 -->
+
+
+    <flexcomp name="human_back_model" type="grid" 
+              count="9 9 3" 
+              spacing="0.05 0.05 0.05" 
+              pos="0.6 0 0.3" 
+              radius="0.003" rgba="0.8 0.6 0.5 1" dim="3" mass="2">
+      
+      <contact condim="3" solref="0.03 1" solimp=".95 .99 .001" selfcollide="none"/>
+      
+      <edge damping="10"/>
+      <elasticity young="1e4" poisson="0.4"/> 
+    </flexcomp>
+    
+
+
+  </worldbody>
+</mujoco>
+
+
+
+
+

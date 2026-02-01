@@ -1,0 +1,132 @@
+<mujoco model="kuka_med7_osc_core">
+  <compiler angle="radian" meshdir="assets" autolimits="true" balanceinertia="true"/>
+
+  <option integrator="implicitfast"/>
+
+  <default>
+    <default class="med7">
+      <material specular="0.5" shininess="0.25"/>
+      <joint damping="5.0" frictionloss="0.5" armature="1.0"/>
+      <general biastype="affine"/>
+
+      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2" material="light_grey"/>
+      </default>
+
+      <default class="collision">
+        <geom type="mesh" group="3" rgba="0.5 0.5 0.5 1"/>
+      </default>
+    </default>
+  </default>
+
+  <asset>
+    <material name="light_grey" rgba="0.8 0.8 0.8 1"/>
+    <material name="dark_grey" rgba="0.3 0.3 0.3 1"/>
+    
+    <mesh name="link_0_vis" file="visual/link_0.obj"/>
+    <mesh name="link_1_vis" file="visual/link_1.obj"/>
+    <mesh name="link_2_vis" file="visual/link_2.obj"/>
+    <mesh name="link_3_vis" file="visual/link_3.obj"/>
+    <mesh name="link_4_vis" file="visual/link_4.obj"/>
+    <mesh name="link_5_vis" file="visual/link_5.obj"/>
+    <mesh name="link_6_vis" file="visual/link_6.obj"/>
+    <mesh name="link_7_vis" file="visual/link_7.obj"/>
+
+    <mesh name="link_0_col" file="collision/link_0.stl"/>
+    <mesh name="link_1_col" file="collision/link_1.stl"/>
+    <mesh name="link_2_col" file="collision/link_2.stl"/>
+    <mesh name="link_3_col" file="collision/link_3.stl"/>
+    <mesh name="link_4_col" file="collision/link_4.stl"/>
+    <mesh name="link_5_col" file="collision/link_5.stl"/>
+    <mesh name="link_6_col" file="collision/link_6.stl"/>
+    <mesh name="link_7_col" file="collision/link_7.stl"/>
+  </asset>
+
+  <worldbody>
+    <body name="link_0" pos="0 0 0">
+      <inertial pos="-0.001896 0.0 0.076263" mass="7.143112" diaginertia="0.038694 0.039461 0.054387"/>
+      <geom mesh="link_0_vis" class="visual"/>
+      <geom mesh="link_0_col" class="collision"/>
+
+      <body name="link_1" pos="0 0 0.1475">
+        <inertial pos="0.0 -0.034819 0.123299" mass="3.271499" fullinertia="0.020611 0.019667 0.00729 0 0 0.00366"/>
+        <joint name="A1" axis="0 0 1" range="-2.9496 2.9496" class="med7"/>
+        <geom mesh="link_1_vis" class="visual" pos="0 0 -0.1475"/>
+        <geom mesh="link_1_col" class="collision" pos="0 0 -0.1475"/>
+
+        <body name="link_2" pos="0 -0.0105 0.1925">
+          <inertial pos="0.0 0.039793 0.086944" mass="3.886413" fullinertia="0.030552 0.028995 0.009317 0 0 0.005676"/>
+          <joint name="A2" axis="0 1 0" range="-2.0769 2.0769" class="med7"/>
+          <geom mesh="link_2_vis" class="visual" pos="0 0.0105 -0.34"/>
+          <geom mesh="link_2_col" class="collision" pos="0 0.0105 -0.34"/>
+
+          <body name="link_3" pos="0 0.0105 0.2075">
+            <inertial pos="0.0 0.034819 0.123299" mass="3.271499" fullinertia="0.020611 0.019667 0.00729 0 0 -0.00366"/>
+            <joint name="A3" axis="0 0 1" range="-2.9496 2.9496" class="med7"/>
+            <geom mesh="link_3_vis" class="visual" pos="0 0 -0.5475"/>
+            <geom mesh="link_3_col" class="collision" pos="0 0 -0.5475"/>
+
+            <body name="link_4" pos="0 0.0105 0.1925">
+              <inertial pos="0.0 -0.039793 0.086944" mass="3.886411" fullinertia="0.030547 0.028993 0.009313 0 0 -0.005676"/>
+              <joint name="A4" axis="0 -1 0" range="-2.0769 2.0769" class="med7"/>
+              <geom mesh="link_4_vis" class="visual" pos="0 -0.0105 -0.74"/>
+              <geom mesh="link_4_col" class="collision" pos="0 -0.0105 -0.74"/>
+
+              <body name="link_5" pos="0 -0.0105 0.2075">
+                <inertial pos="0.0 -0.029824 0.076267" mass="1.474048" fullinertia="0.008179 0.006879 0.003709 0 0 0.002704"/>
+                <joint name="A5" axis="0 0 1" range="-2.9496 2.9496" class="med7"/>
+                <geom mesh="link_5_vis" class="visual" pos="0 0 -0.9475"/>
+                <geom mesh="link_5_col" class="collision" pos="0 0 -0.9475"/>
+
+                <body name="link_6" pos="0 -0.0707 0.1925">
+                  <inertial pos="-0.000001 0.07102 0.004953" mass="2.316911" fullinertia="0.006813 0.006559 0.004462 0 0 0.0003"/>
+                  <joint name="A6" axis="0 1 0" range="-2.0769 2.0769" class="med7"/>
+                  <geom mesh="link_6_vis" class="visual" pos="0 0.0707 -1.14"/>
+                  <geom mesh="link_6_col" class="collision" pos="0 0.0707 -1.14"/>
+
+                  <body name="link_7" pos="0 0.0707 0.091">
+                    <inertial pos="0.000003 -0.000002 0.013782" mass="0.250108" fullinertia="0.000165 0.000165 0.000288 0 0 0"/>
+                    <joint name="A7" axis="0 0 1" range="-3.0368 3.0368" class="med7"/>
+                    <geom mesh="link_7_vis" class="visual" pos="0 0 -1.231"/>
+                    <geom mesh="link_7_col" class="collision" pos="0 0 -1.231"/>
+
+                    <body name="attachment" pos="0 0 0.045" quat="0 0 0 1">
+                      <site name="attachment_site" rgba="1 0 0 1" size="0.01" group="1"/>
+
+  <include file="/media/a6000-117/eee1def6-b942-4617-96a3-ba01a0d51657/lzz/diffusion_kuka_LLM/assets/mujoco_menagerie/robotiq_2f85/2f85.xml"/>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <contact>
+    <exclude body1="link_0" body2="link_1"/>
+    <exclude body1="link_1" body2="link_2"/>
+    <exclude body1="link_2" body2="link_3"/>
+    <exclude body1="link_3" body2="link_4"/>
+    <exclude body1="link_4" body2="link_5"/>
+    <exclude body1="link_5" body2="link_6"/>
+    <exclude body1="link_6" body2="link_7"/>
+  </contact>
+
+  <actuator>
+    <motor name="A1" joint="A1" ctrlrange="-200 200"/>
+    <motor name="A2" joint="A2" ctrlrange="-200 200"/>
+    <motor name="A3" joint="A3" ctrlrange="-200 200"/>
+    <motor name="A4" joint="A4" ctrlrange="-200 200"/>
+    <motor name="A5" joint="A5" ctrlrange="-200 200"/>
+    <motor name="A6" joint="A6" ctrlrange="-200 200"/>
+    <motor name="A7" joint="A7" ctrlrange="-200 200"/>
+  </actuator>
+  
+  <sensor>
+    <force name="ee_force" site="attachment_site"/>
+    <torque name="ee_torque" site="attachment_site"/>
+  </sensor>
+</mujoco>
