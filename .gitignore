@@ -5,6 +5,14 @@ __pycache__/
 
 
 # 忽略 权重模型文件
+data/
+*.zarr
+
+# 忽略视频输出
+*.mp4
+*.png
+
+
 *.pth
 *.pt
 *.ckpt
@@ -14,3 +22,4 @@ __pycache__/
 weights/
 checkpoints/
 models/
+assets/mujoco_menagerie/
